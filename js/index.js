@@ -6,7 +6,7 @@ function validateLogin(event) {
     // Validación de credenciales
     if (email === 'admin@gmail.com' && password === 'admin') {
         // Redirige al dashboard
-        window.location.href = 'Dashboard.html';
+        window.location.href = 'dashboard.html';
     } else {
         alert('Credenciales incorrectas. Usa "admin@gmail.com" para correo y "admin" para contraseña.');
     }
