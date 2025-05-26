@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Evaluaciones 360</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4"></h2>
+
+        <div class="dashboard-layout">
+            <!-- Cards and Filter Section -->
+            <div class="cards-section">
+                <!-- Filter Button -->
+                <div class="filter-section">
+                    <button class="filter-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fas fa-filter"></i> Filtrar Resultados
+                    </button>
+                </div>
+
+                <!-- Teacher Cards -->
+                <div class="cards-row" id="teacher-cards">
+                    <!-- Teacher cards will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <!-- Pie Chart -->
+                <div class="chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <!-- Bar Chart -->
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filtrar Resultados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Seleccione el personal para filtrar los mejores:</p>
+                    <!-- Subdirecciones -->
+                    <h6>Subdirecciones</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="evaluacionesAcademicas" checked>
+                        <label class="form-check-label" for="evaluacionesAcademicas">Evaluaciones académicas</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="gestionEscolar">
+                        <label class="form-check-label" for="gestionEscolar">Gestión escolar</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="administrativa">
+                        <label class="form-check-label" for="administrativa">Administrativa</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="planeacion">
+                        <label class="form-check-label" for="planeacion">Planeación</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="eventos">
+                        <label class="form-check-label" for="eventos">Eventos</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="gestionAcademica">
+                        <label class="form-check-label" for="gestionAcademica">Gestión académica</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="proyectos">
+                        <label class="form-check-label" for="proyectos">Proyectos</label>
+                    </div>
+
+                    <!-- Coordinaciones -->
+                    <h6 class="mt-3">Coordinaciones</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="tiempoCompleto">
+                        <label class="form-check-label" for="tiempoCompleto">Humanidades</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="asimilados">
+                        <label class="form-check-label" for="asimilados">Ciencias</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="psicologo">
+                        <label class="form-check-label" for="psicologo">Idiomas</label>
+                    </div>
+
+                    <!-- Docentes -->
+                    <h6 class="mt-3">Docentes</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="docentes">
+                        <label class="form-check-label" for="docentes">Tiempo completo counselor</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="disciplina">
+                        <label class="form-check-label" for="disciplina">Tiempo completo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="paramedico">
+                        <label class="form-check-label" for="paramedico">Asimilados</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="recepcion">
+                        <label class="form-check-label" for="recepcion">Psicólogo</label>
+                    </div>
+
+                    <!-- Otros -->
+                    <h6 class="mt-3">Otros</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="disciplinaOtros">
+                        <label class="form-check-label" for="disciplinaOtros">Disciplina</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="paramedicoOtros">
+                        <label class="form-check-label" for="paramedicoOtros">Paramédico</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="recepcionOtros">
+                        <label class="form-check-label" for="recepcionOtros">Recepción</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filterOption" id="limpieza">
+                        <label class="form-check-label" for="limpieza">Limpieza y Mantenimiento</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="applyFilter()">Aplicar Filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

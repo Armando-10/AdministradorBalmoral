@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupos</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/grupos.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2></h2>
+            <div id="group-list">
+                <!-- Group list will be populated by JavaScript -->
+            </div>
+        </div>
+        <div class="content">
+            <div class="button-container top-buttons">
+                <button class="add-group-btn" data-bs-toggle="modal" data-bs-target="#addGroupModal">Agregar Grupo</button>
+                <button class="edit-group-btn" onclick="showEditModal()">Editar Grupo</button>
+                <button class="delete-group-btn" onclick="showDeleteModal()">Eliminar Grupo</button>
+            </div>
+            <div id="noSelectionMessage" class="no-selection-message">
+                No se ha seleccionado ningún grupo
+            </div>
+            <div id="groupInfo" class="group-info">
+                <div class="info-header">
+                    <img id="groupPhoto" src="" alt="Group Photo">
+                    <div class="info-text">
+                        <h3 id="groupName"></h3>
+                        <p><strong>Counselor:</strong> <span id="groupCounselor"></span></p>
+                        <p><strong>Número de Estudiantes:</strong> <span id="groupStudents"></span></p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="manage-counselor-btn" onclick="manageCounselor()">Gestionar Counselor</button>
+                    <button class="manage-students-btn" onclick="manageStudents()">Gestionar Alumnos</button>
+                </div>
+                <div id="successMessage" class="success-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Group -->
+    <div class="modal fade" id="addGroupModal" tabindex="-1" aria-labelledby="addGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addGroupModalLabel">Agregar Grupo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addGroupForm">
+                        <label for="group_name">Nombre del Grupo:</label>
+                        <input type="text" name="group_name" id="group_name" required>
+                        <label for="counselor">Counselor:</label>
+                        <select name="counselor" id="counselor" required>
+                            <option value="Antonio Pera">Antonio Pera</option>
+                            <option value="María Gómez">María Gómez</option>
+                            <option value="Carlos López">Carlos López</option>
+                        </select>
+                        <label for="students">Número de Estudiantes:</label>
+                        <input type="number" name="students" id="students" min="1" required>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="addGroup()">Agregar Grupo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Group -->
+    <div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGroupModalLabel">Editar Grupo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editGroupForm">
+                        <label for="group_name">Nombre del Grupo:</label>
+                        <input type="text" name="group_name" id="group_name" required>
+                        <label for="counselor">Counselor:</label>
+                        <select name="counselor" id="counselor" required>
+                            <option value="Antonio Pera">Antonio Pera</option>
+                            <option value="María Gómez">María Gómez</option>
+                            <option value="Carlos López">Carlos López</option>
+                        </select>
+                        <label for="students">Número de Estudiantes:</label>
+                        <input type="number" name="students" id="students" min="1" required>
+                        <input type="hidden" name="selected_group" id="selected_group_edit">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="editGroup()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Managing Counselor -->
+    <div class="modal fade" id="manageCounselorModal" tabindex="-1" aria-labelledby="manageCounselorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageCounselorModalLabel">Gestionar Counselor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-users fa-3x text-purple"></i>
+                    </div>
+                    <button class="btn btn-primary mb-3" style="width: 200px;" onclick="showChangeCounselorModal()">Cambiar Counselor</button>
+                    <button class="btn btn-danger" style="width: 200px;" onclick="removeCounselor()">Eliminar Counselor</button>
+                    <div id="counselorSuccessMessage" class="success-message mt-3">Counselor Actualizado Correctamente</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Changing Counselor -->
+    <div class="modal fade" id="changeCounselorModal" tabindex="-1" aria-labelledby="changeCounselorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeCounselorModalLabel">Seleccionar el Counselor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changeCounselorForm">
+                        <div id="counselor-list">
+                            <!-- Counselor list will be populated by JavaScript -->
+                        </div>
+                        <input type="hidden" name="selected_group" id="selected_group_change">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="changeCounselor()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Managing Students -->
+    <div class="modal fade" id="manageStudentsModal" tabindex="-1" aria-labelledby="manageStudentsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageStudentsModalLabel">Gestionar Alumnos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="student-list">
+                        <h4 class="mb-3">Lista de Alumnos</h4>
+                        <ul id="studentList" class="list-group"></ul>
+                    </div>
+                    <div class="student-form">
+                        <h4 class="mb-3">Gestionar Alumno</h4>
+                        <form id="studentForm">
+                            <input type="hidden" name="selected_group" id="selected_group_students">
+                            <div class="mb-3">
+                                <label for="student_name" class="form-label">Nombre del Alumno:</label>
+                                <input type="text" name="student_name" id="student_name" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cellular" class="form-label">Celular:</label>
+                                <input type="tel" name="cellular" id="cellular" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">Correo:</label>
+                                <input type="email" name="correo" id="correo" class="form-control" required>
+                            </div>
+                            <input type="hidden" name="edit_student_index" id="edit_student_index">
+                            <button type="button" class="btn add-btn" onclick="addOrUpdateStudent()"><i class="fas fa-plus"></i> Agregar/Actualizar</button>
+                            <button type="button" class="btn delete-btn" onclick="deleteStudent()"><i class="fas fa-trash"></i> Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/grupos.js"></script>
+</body>
+</html>

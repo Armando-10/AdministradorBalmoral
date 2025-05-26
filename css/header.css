@@ -1,0 +1,68 @@
+body {
+  overflow-x: hidden; /* Evita desplazamiento horizontal en toda la página */
+}
+.navbar {
+  background-color: #fff;
+  padding: 5px 10px; /* Reducido el padding vertical a 5px */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand img {
+  height: 65px; /* Tamaño deseado del logo */
+  max-height: 65px; /* Limita la altura máxima */
+  object-fit: contain; /* Asegura que el logo mantenga proporciones */
+  vertical-align: middle; /* Alinea verticalmente */
+}
+.navbar-brand {
+  padding: 0; /* Elimina padding interno para reducir espacio */
+  margin-left: -10px;
+}
+.navbar-nav {
+  flex: 1;
+  justify-content: space-between;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nav-link {
+  color: #dc3545 !important;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 10px;
+  transition: color 0.3s, transform 0.3s;
+}
+.nav-link:hover {
+  color: #ff0000 !important;
+  transform: scale(1.1);
+}
+.nav-link.active {
+  color: #dc3545 !important;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+.dropdown-toggle i {
+  color: #000;
+  font-size: 28px;
+  transition: color 0.3s, transform 0.3s;
+}
+.dropdown-toggle:hover i {
+  color: #dc3545;
+  transform: scale(1.2);
+}
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dropdown-item {
+  font-family: 'Roboto', sans-serif;
+  color: #dc3545;
+  transition: background-color 0.3s, color 0.3s;
+}
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #ff0000;
+}
+.dropdown {
+  margin-right: -10px;
+}

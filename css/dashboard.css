@@ -1,0 +1,102 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+.teacher-card {
+    background-color: #e3f2fd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Base width increased */
+    height: 350px; /* Base height increased */
+    margin-right: 20px;
+}
+.teacher-card img {
+    width: 100px; /* Increased from 100px */
+    height: 100px; /* Increased from 100px */
+    border-radius: 50%;
+    background-color: #ffeb3b;
+    margin-bottom: 15px; /* Increased from 10px */
+}
+.teacher-card h5 {
+    color: #0d47a1;
+    font-weight: bold;
+    margin-bottom: 10px; /* Increased from 10px */
+    font-size: 1.2em; /* Slightly larger text */
+}
+.teacher-card p {
+    color: #555;
+    margin: 7px 0; /* Increased from 5px */
+    font-size: 14px; /* Increased from 14px */
+}
+.rating-bar {
+    height: 12px; /* Increased from 10px */
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 15px 0; /* Increased from 10px */
+}
+.rating-fill {
+    height: 100%;
+    background-color: #f06292;
+    transition: width 0.5s ease-in-out;
+}
+.filter-btn {
+    background-color: #e3f2fd;
+    border: 1px solid #bbdefb;
+    color: #0d47a1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.filter-btn:hover {
+    background-color: #bbdefb;
+}
+.chart-container {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 10px;
+    box-shadow: none;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 300px;
+    display: block;
+}
+.chart-container canvas {
+    background-color: transparent;
+    border: none;
+}
+.dashboard-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.cards-section {
+    flex-grow: 1;
+}
+.cards-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between cards */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+.cards-row .teacher-card {
+    flex: 0 0 250px; /* Ensure base width is 300px */
+    height: 350px; /* Base height */
+}
+.cards-row .teacher-card:nth-child(2) {
+    flex: 0 0 300px; /* Middle card wider */
+    height: 400px; /* Middle card taller */
+}
+.cards-row .teacher-card:nth-child(2) img {
+    width: 140px; /* Larger image for middle card */
+    height: 140px; /* Larger image for middle card */
+}
+.charts-section {
+    flex-basis: 30%;
+    text-align: center;
+}

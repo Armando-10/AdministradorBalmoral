@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Alumnos</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/Alumnos.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2></h2>
+            <div id="student-list">
+                <!-- Student list will be populated by JavaScript -->
+            </div>
+        </div>
+        <div class="content">
+            <div class="button-container top-buttons">
+                <button class="add-student-btn" data-bs-toggle="modal" data-bs-target="#addStudentModal">Agregar Alumno</button>
+                <button class="add-group-btn" onclick="showGroupModal()">Agregar a Grupo</button>
+                <button class="add-discipline-btn">Agregar Disciplina</button>
+            </div>
+            <div id="noSelectionMessage" class="no-selection-message">
+                No se ha seleccionado ningún alumno
+            </div>
+            <div id="studentInfo" class="student-info">
+                <div class="info-header">
+                    <img id="studentPhoto" src="" alt="Student Photo">
+                    <div class="info-text">
+                        <h3 id="studentName"></h3>
+                        <p><strong>Grupo:</strong> <span id="studentGroup"></span></p>
+                        <p><strong>Celular:</strong> <span id="studentCellular"></span></p>
+                        <p><strong>Correo:</strong> <span id="studentCorreo"></span></p>
+                        <p><strong>Taller:</strong> <span id="studentWorkshop"></span></p>
+                        <p><strong>Psicólogo:</strong> <span id="studentPsychologist"></span></p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="assign-workshop-btn" onclick="showWorkshopModal()">Asignar Taller</button>
+                    <button class="assign-psychologist-btn" onclick="showPsychologistModal()">Asignar Psicólogo</button>
+                    <button class="edit-student-btn" onclick="showEditModal()">Editar Alumno</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Student -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Agregar Alumno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre" required>
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" name="apellidos" id="apellidos" required>
+                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
+                        <label for="ciudad">Ciudad:</label>
+                        <input type="text" name="ciudad" id="ciudad" required>
+                        <label for="estado">Estado:</label>
+                        <input type="text" name="estado" id="estado" required>
+                        <label for="correo_institucional">Correo Institucional:</label>
+                        <input type="email" name="correo_institucional" id="correo_institucional" required>
+                        <label for="celular">Celular:</label>
+                        <input type="tel" name="celular" id="celular" required>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="addStudent()">Agregar Alumno</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Changing Group -->
+    <div class="modal fade" id="changeGroupModal" tabindex="-1" aria-labelledby="changeGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeGroupModalLabel">Cambiar Grupo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changeGroupForm">
+                        <label for="new_group">Selecciona un grupo:</label>
+                        <select name="new_group" id="new_group" required>
+                            <option value="6-A">6-A</option>
+                            <option value="6-B">6-B</option>
+                            <option value="6-C">6-C</option>
+                        </select>
+                        <input type="hidden" name="selected_student" id="selected_student">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="changeGroup()">Cambiar Grupo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Assigning Workshop -->
+    <div class="modal fade" id="assignWorkshopModal" tabindex="-1" aria-labelledby="assignWorkshopModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assignWorkshopModalLabel">Asignar Taller</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="assignWorkshopForm">
+                        <label for="new_workshop">Selecciona un taller:</label>
+                        <select name="new_workshop" id="new_workshop" required>
+                            <option value="">-- Selecciona un taller --</option>
+                            <option value="Matemáticas">Matemáticas</option>
+                            <option value="Ciencias">Ciencias</option>
+                            <option value="Arte">Arte</option>
+                        </select>
+                        <input type="hidden" name="selected_student" id="selected_student_workshop">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="assignWorkshop()">Asignar Taller</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Assigning Psychologist -->
+    <div class="modal fade" id="assignPsychologistModal" tabindex="-1" aria-labelledby="assignPsychologistModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assignPsychologistModalLabel">Asignar Psicólogo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="assignPsychologistForm">
+                        <label for="new_psychologist">Selecciona un psicólogo:</label>
+                        <select name="new_psychologist" id="new_psychologist" required>
+                            <option value="">-- Selecciona un psicólogo --</option>
+                            <option value="María Gómez">María Gómez</option>
+                            <option value="Carlos López">Carlos López</option>
+                            <option value="Sofía Ramírez">Sofía Ramírez</option>
+                        </select>
+                        <input type="hidden" name="selected_student" id="selected_student_psychologist">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="assignPsychologist()">Asignar Psicólogo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Student -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentModalLabel">Editar Alumno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editStudentForm">
+                        <label for="group">Grupo:</label>
+                        <input type="text" name="group" id="group" required>
+                        <label for="cellular">Celular:</label>
+                        <input type="tel" name="cellular" id="cellular" required>
+                        <label for="correo">Correo:</label>
+                        <input type="email" name="correo" id="correo" required>
+                        <input type="hidden" name="selected_student" id="selected_student_edit">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="editStudent()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/Alumnos.js"></script>
+</body>
+</html>
