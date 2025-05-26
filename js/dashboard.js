@@ -88,7 +88,7 @@ function applyFilter() {
 
 // Function to load header
 function loadHeader() {
-    fetch('Header.html')
+    fetch('header.html')
         .then(response => response.text())
         .then(data => {
             document.getElementById('header').innerHTML = data;
